@@ -1,12 +1,16 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { MobileMenu } from "@/components/common/MenuLayout";
+import { CategoryBar } from "@/components/nav/CategoryBar";
+import { TagBar } from "@/components/nav/TagBar";
+import { DEFAULT_TAG, getTag } from "@/lib/nav";
 
-const navItems = ["Services", "About Us", "Our People", "Partners", "Careers"];
+const mobileMenuItems = getTag(DEFAULT_TAG).menu;
 
 function Header() {
   return (
-    <header className="border-b border-brand-border-strong bg-white">
-      <div className="mx-auto flex h-[58px] max-w-[1180px] items-center justify-between gap-4 px-5 sm:h-[70px] sm:px-8 lg:px-10">
+    <header className="relative border-b border-brand-border-strong bg-white [--header-h:58px] sm:[--header-h:70px]">
+      <div className="relative mx-auto flex h-[58px] max-w-[1180px] items-center justify-between gap-4 px-5 sm:h-[70px] sm:px-8 lg:px-10">
         <Link href="/" className="flex items-center gap-2" aria-label="Baltimore Group home">
           <img src="/assets/brand-mark.png" alt="" className="h-12 w-14 object-contain" />
           <span className="leading-none">
@@ -15,15 +19,11 @@ function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex">
-          {navItems.map((label) => (
-            <Link key={label} href={`#${label.toLowerCase().replaceAll(" ", "-")}`} className="text-sm font-medium text-brand-ink hover:text-brand-blue">
-              {label}
-            </Link>
-          ))}
-        </nav>
+        <div className="hidden flex-1 justify-center md:flex">
+          <TagBar />
+        </div>
 
-        <div className="flex items-center gap-4">
+        <div className="hidden items-center gap-4 md:flex">
           <Link href="#contact" className="rounded-full border-2 border-brand-blue px-4 py-2 text-sm font-semibold text-brand-blue hover:bg-brand-blue hover:text-white sm:px-5">Contact Us</Link>
           <div className="hidden items-center gap-3 sm:flex" aria-label="Social links">
             <img src="/assets/facebook.svg" alt="Facebook" className="size-6" />
@@ -31,6 +31,12 @@ function Header() {
             <img src="/assets/linkedin.svg" alt="LinkedIn" className="size-6" />
             <img src="/assets/instagram.svg" alt="Instagram" className="size-6" />
           </div>
+        </div>
+        <MobileMenu items={mobileMenuItems} />
+      </div>
+      <div className="hidden h-12 border-t border-brand-border md:block">
+        <div className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
+          <CategoryBar />
         </div>
       </div>
     </header>
