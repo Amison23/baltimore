@@ -1,11 +1,8 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { MobileMenu } from "@/components/common/MenuLayout";
 import { CategoryBar } from "@/components/nav/CategoryBar";
+import { MobileMenu } from "@/components/nav/MobileMenu";
 import { TagBar } from "@/components/nav/TagBar";
-import { DEFAULT_TAG, getTag } from "@/lib/nav";
-
-const mobileMenuItems = getTag(DEFAULT_TAG).menu;
 
 function Header() {
   return (
@@ -32,7 +29,7 @@ function Header() {
             <img src="/assets/instagram.svg" alt="Instagram" className="size-6" />
           </div>
         </div>
-        <MobileMenu items={mobileMenuItems} />
+        <MobileMenu />
       </div>
       <div className="hidden h-12 border-t border-brand-border md:block">
         <div className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
