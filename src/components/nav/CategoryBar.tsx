@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { getTag, type MenuNode } from "@/lib/nav";
-import { useActiveTag } from "./use-active-tag";
 import { MegaPanel } from "./MegaPanel";
+import { useNavState } from "./NavState";
 
 function nodeId(label: string, index: number) {
   return `category-panel-${index}-${label.toLowerCase().replaceAll(/[^a-z0-9]+/g, "-")}`;
@@ -15,7 +15,7 @@ function categoryHref(node: MenuNode) {
 }
 
 export function CategoryBar() {
-  const activeTag = useActiveTag();
+  const { activeTag } = useNavState();
   const config = getTag(activeTag);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const barRef = useRef<HTMLElement>(null);

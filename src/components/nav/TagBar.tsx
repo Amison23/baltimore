@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { TAGS } from "@/lib/nav";
-import { useActiveTag } from "./use-active-tag";
+import { useNavState } from "./NavState";
 
 export function TagBar() {
-  const activeTag = useActiveTag();
+  const { activeTag, setActiveTag } = useNavState();
 
   return (
     <nav aria-label="Audience navigation">
@@ -17,6 +17,10 @@ export function TagBar() {
               <Link
                 href={`/${tag.id}`}
                 aria-current={active ? "true" : undefined}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setActiveTag(tag.id);
+                }}
                 className={`relative block px-1 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${active ? "text-brand-gold" : "text-brand-ink hover:text-brand-gold"}`}
               >
                 {tag.label}

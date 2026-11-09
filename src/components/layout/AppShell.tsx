@@ -2,12 +2,14 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { CategoryBar } from "@/components/nav/CategoryBar";
 import { MobileMenu } from "@/components/nav/MobileMenu";
+import { NavStateProvider } from "@/components/nav/NavState";
 import { TagBar } from "@/components/nav/TagBar";
 
 function Header() {
   return (
     <header className="relative border-b border-brand-border-strong bg-white [--header-h:58px] sm:[--header-h:70px]">
-      <div className="relative mx-auto flex h-[58px] max-w-[1180px] items-center justify-between gap-4 px-5 sm:h-[70px] sm:px-8 lg:px-10">
+      <NavStateProvider>
+        <div className="relative mx-auto flex h-[58px] max-w-[1180px] items-center justify-between gap-4 px-5 sm:h-[70px] sm:px-8 lg:px-10">
         <Link href="/" className="flex items-center gap-2" aria-label="Baltimore Group home">
           <img src="/assets/brand-mark.png" alt="" className="h-12 w-14 object-contain" />
           <span className="leading-none">
@@ -30,12 +32,13 @@ function Header() {
           </div>
         </div>
         <MobileMenu />
-      </div>
-      <div className="hidden h-12 border-t border-brand-border md:block">
-        <div className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
-          <CategoryBar />
         </div>
-      </div>
+        <div className="hidden h-12 border-t border-brand-border md:block">
+          <div className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
+            <CategoryBar />
+          </div>
+        </div>
+      </NavStateProvider>
     </header>
   );
 }
