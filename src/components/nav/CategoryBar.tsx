@@ -78,7 +78,7 @@ export function CategoryBar() {
   return (
     <nav ref={barRef} aria-label="Category navigation" className="hidden md:block" onPointerLeave={scheduleClose}>
       <ul className="flex items-center gap-8">
-        {config.menu.map((node, index) => {
+        {config.categories.map((node, index) => {
           const hasChildren = Boolean(node.children?.length);
           const panelId = nodeId(node.label, index);
           return (
@@ -97,17 +97,20 @@ export function CategoryBar() {
                       if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
                         event.preventDefault();
                         const direction = event.key === "ArrowRight" ? 1 : -1;
-                        const next = (index + direction + config.menu.length) % config.menu.length;
-                        const nextNode = config.menu[next];
+                        const next = (index + direction + config.categories.length) % config.categories.length;
+                        const nextNode = config.categories[next];
                         if (!nextNode.disabled) buttonRefs.current[next]?.focus();
                       }
                     }}
                     className="py-3 text-[13px] font-medium text-brand-ink transition-colors hover:text-brand-gold motion-reduce:transition-none disabled:cursor-not-allowed disabled:text-brand-slate-light"
                   >
                     {node.label}
-                    <span aria-hidden="true" className="ml-1">⌄</span>
                   </button>
-                  {openIndex === index && <div id={panelId} onPointerEnter={clearTimers} onPointerLeave={scheduleClose}><MegaPanel node={node} onNavigate={() => close()} /></div>}
+                  {openIndex === index && (
+                    <div id={panelId} onPointerEnter={clearTimers} onPointerLeave={scheduleClose}>
+                      <MegaPanel node={node} onNavigate={() => close()} />
+                    </div>
+                  )}
                 </>
               ) : node.disabled ? (
                 <span aria-disabled="true" className="block py-3 text-[13px] font-medium text-brand-slate-light">{node.label}</span>

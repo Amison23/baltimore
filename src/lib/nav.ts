@@ -24,7 +24,7 @@ export type MenuNode = NodeBase &
   ({ href: string; children?: MenuNode[] } | { href?: undefined; children: MenuNode[] });
 
 export type TagConfig = {
-  menu: MenuNode[];
+  categories: MenuNode[];
   actions: [NavAction, ...NavAction[]];
 };
 
@@ -36,23 +36,36 @@ const placeholderFeature = {
 
 export const nav: Record<TagId, TagConfig> = {
   personal: {
-    menu: [
+    categories: [
       {
-        label: "Banking",
+        label: "Secure Life and Assets",
         children: [
-          { label: "Everyday banking", href: "/personal/banking/everyday" },
-          { label: "Savings", href: "/personal/banking/savings" },
-        ],
+          {
+            label: "Family",
+            children: [
+              { label: "My family and I", href: "/personal/banking/everyday" },
+              { label: "My Life", href: "/personal/banking/savings" },
+              { label: "My property", href: "/personal/banking/my-property" },
+            ]
+          },
+        ]
       },
       {
-        label: "Borrowing",
+        label: "Grow your Money",
         children: [
-          { label: "Personal loans", href: "/personal/loans" },
+          { label: "Unit trusts", href: "/personal/loans" },
           { label: "Home loans", href: "/personal/home-loans" },
         ],
       },
       {
-        label: "Planning",
+        label: "Retire with ease",
+        children: [
+          { label: "Investing", href: "/personal/investing" },
+          { label: "Retirement", href: "/personal/retirement" },
+        ],
+      },
+      {
+        label: "Preserve your Legacy",
         children: [
           { label: "Investing", href: "/personal/investing" },
           { label: "Retirement", href: "/personal/retirement" },
@@ -65,7 +78,8 @@ export const nav: Record<TagId, TagConfig> = {
     ],
   },
   business: {
-    menu: [
+    // TODO: Replace these placeholder business categories with approved product copy.
+    categories: [
       {
         label: "Business banking",
         feature: placeholderFeature,
@@ -112,7 +126,8 @@ export const nav: Record<TagId, TagConfig> = {
     ],
   },
   "about-us": {
-    menu: [
+    // TODO: Replace these placeholder about-us categories with approved copy.
+    categories: [
       {
         label: "About Baltimore",
         children: [
@@ -139,7 +154,8 @@ export const nav: Record<TagId, TagConfig> = {
     ],
   },
   "customer-support": {
-    menu: [
+    // TODO: Replace these placeholder support categories with approved copy.
+    categories: [
       {
         label: "Help centre",
         children: [
@@ -196,5 +212,5 @@ function validateNodes(nodes: MenuNode[], path: string[], level: number): void {
 }
 
 if (process.env.NODE_ENV !== "production") {
-  for (const tag of TAGS) validateNodes(nav[tag.id].menu, [tag.id], 1);
+  for (const tag of TAGS) validateNodes(nav[tag.id].categories, [tag.id], 1);
 }

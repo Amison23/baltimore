@@ -17,7 +17,7 @@ export function MobileMenu() {
 
   const current = path[path.length - 1];
   const config = viewTag ? getTag(viewTag) : null;
-  const list = current?.children ?? config?.menu ?? [];
+  const list = current?.children ?? config?.categories ?? [];
 
   const close = () => {
     setOpen(false);

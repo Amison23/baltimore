@@ -19,15 +19,19 @@ export default function Partners() {
           robust networks, through partnering with various stakeholders in order
           to deliver excellent tailored solutions for our array of customers.
         </p>
-        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {partners.map((partner) => (
-            <div
-              key={partner}
-              className="flex h-[84px] items-center justify-center rounded-xl border border-brand-border bg-white px-3 text-center text-sm font-semibold text-brand-slate-light"
-            >
-              {partner}
-            </div>
-          ))}
+        <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6 scroller-container">
+          <div className="scroller-track">
+            {partners.map((partner) => (
+              <div
+                key={partner}
+                className="flex h-[84px] items-center justify-center rounded-xl 
+                border border-brand-border bg-white px-3 text-center text-sm 
+                font-semibold text-brand-slate-light scroller-item"
+              >
+                {partner}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -13,8 +13,11 @@ export default function People() {
         <p className="mt-4 text-center text-base text-brand-slate">Board of Directors</p>
         <div className="mx-auto mt-12 grid max-w-3xl gap-x-20 gap-y-14 sm:grid-cols-2">
           {directors.map(([initials, name, role]) => (
-            <article key={name} className="text-center">
-              <div className="mx-auto flex h-[84px] w-72 max-w-full items-center justify-center rounded-full bg-brand-icon-surface text-[26px] font-bold text-brand-navy">{initials}</div>
+            <article key={name} className="text-center ">
+              <div className="mx-auto flex size-[84px] items-center shrink-0 justify-center 
+                  rounded-full bg-brand-icon-surface text-[26px] font-bold text-brand-navy">
+                {initials}
+              </div>
               <h3 className="mt-8 text-base font-bold text-brand-navy">{name}</h3>
               <p className="text-sm text-brand-slate-light">{role}</p>
             </article>

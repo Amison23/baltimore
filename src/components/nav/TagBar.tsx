@@ -24,7 +24,7 @@ export function TagBar() {
                 className={`relative block px-1 py-2 text-[13px] font-medium transition-colors motion-reduce:transition-none ${active ? "text-brand-gold" : "text-brand-ink hover:text-brand-gold"}`}
               >
                 {tag.label}
-                {active && <span aria-hidden="true" className="absolute inset-x-0 -bottom-[1px] mx-auto h-0 w-0 border-x-[5px] border-b-0 border-t-[6px] border-x-transparent border-t-brand-gold" />}
+                {/* {active && <span aria-hidden="true" className="absolute inset-x-0 -bottom-[1px] mx-auto h-0 w-0 border-x-[5px] border-b-0 border-t-[6px] border-x-transparent border-t-brand-gold" />} */}
               </Link>
             </li>
           );
