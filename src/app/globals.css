@@ -58,7 +58,7 @@
   --color-brand-icon-surface: var(--brand-icon-surface);
   --color-brand-border: var(--brand-border);
   --color-brand-border-strong: var(--brand-border-strong);
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 

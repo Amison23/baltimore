@@ -3,18 +3,24 @@
 import { useNavState } from "@/components/nav/NavState";
 import { getTag, TAGS, type MenuNode, type TagId } from "@/lib/nav";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
 
 export function MobileMenu() {
   const { activeTag, setActiveTag } = useNavState();
   const pathname = usePathname();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [viewTag, setViewTag] = useState<TagId | null>(null);
   const [path, setPath] = useState<MenuNode[]>([]);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const current = path[path.length - 1];
   const config = viewTag ? getTag(viewTag) : null;
@@ -82,22 +88,16 @@ export function MobileMenu() {
       </button>
 
       {open && (
-        <button
-          type="button"
-          aria-label="Close menu"
-          onClick={close}
-          className="fixed inset-0 z-40 bg-brand-navy/20"
-        />
-      )}
-
-      {open && (
-        <nav
-          ref={panelRef}
-          id="mobile-nav"
-          aria-label="Mobile navigation"
-          className="absolute inset-x-0 top-full z-50 flex max-h-[calc(100dvh-var(--header-h))] flex-col bg-white shadow-md"
-        >
-          <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-8">
+        <SidebarProvider defaultOpen className="fixed inset-0 z-50 h-dvh min-h-0 w-full bg-brand-navy/20" onClick={(event) => { if (event.target === event.currentTarget) close(); }}>
+          <Sidebar collapsible="none" className="!h-dvh !w-[92vw] max-w-none bg-white shadow-2xl">
+            <SidebarHeader className="flex min-h-[58px] flex-row items-center justify-between border-b border-brand-border-strong px-5 sm:min-h-[70px] sm:px-8">
+            <span className="text-base font-bold text-brand-navy">Menu</span>
+            <button type="button" aria-label="Close navigation menu" onClick={close} className="flex size-11 items-center justify-center rounded-md text-xl text-brand-navy transition-colors hover:bg-brand-surface motion-reduce:transition-none">
+              ✕
+            </button>
+            </SidebarHeader>
+            <SidebarContent className="px-5 py-4 sm:px-8">
+              <div ref={panelRef} id="mobile-nav" className="contents">
             {!viewTag ? (
               <ul className="flex flex-col">
                 {TAGS.map((tag) => (
@@ -115,28 +115,18 @@ export function MobileMenu() {
                     </button>
                   </li>
                 ))}
-                <li
-                  className="border-b border-brand-border last:border-0"
-                >
-                  <button
-                    type="button"
-                    className="flex min-h-11 w-full items-center justify-between py-3 text-left text-sm font-medium text-brand-ink"
-                    onClick={() => router.push("/careers")}
-                  >Our People
-                
-                  </button>
-                </li>
-                <li
-                  className="border-b border-brand-border last:border-0"
-                >
-                  <button
-                    type="button"
-                    className="flex min-h-11 w-full items-center justify-between py-3 text-left text-sm font-medium text-brand-ink"
-                    onClick={() => router.push("/#our-people")}
-                  >
+                <li className="border-b border-brand-border last:border-0">
+                  <Link href="/careers" onClick={close} className="flex min-h-11 w-full items-center justify-between py-3 text-sm font-medium text-brand-ink hover:text-brand-gold motion-reduce:transition-none">
                     Careers
-                  </button>
-                  </li>
+                    <span aria-hidden="true">›</span>
+                  </Link>
+                </li>
+                <li className="border-b border-brand-border last:border-0">
+                  <Link href="/#our-people" onClick={close} className="flex min-h-11 w-full items-center justify-between py-3 text-sm font-medium text-brand-ink hover:text-brand-gold motion-reduce:transition-none">
+                    Our People
+                    <span aria-hidden="true">›</span>
+                  </Link>
+                </li>
               </ul>
             ) : (
               <>
@@ -152,7 +142,7 @@ export function MobileMenu() {
                   >
                     ← Back
                   </button>
-           
+
                   <span className="text-lg font-bold text-brand-navy mx-auto">
                     {current?.label ??
                       TAGS.find((tag) => tag.id === viewTag)?.label}
@@ -209,10 +199,11 @@ export function MobileMenu() {
                 </ul>
               </>
             )}
-          </div>
+              </div>
+            </SidebarContent>
 
           {config && (
-            <div className="flex shrink-0 gap-3 border-t border-brand-border-strong bg-white px-5 py-4 sm:px-8">
+            <SidebarFooter className="flex shrink-0 flex-row gap-3 border-t border-brand-border-strong bg-white px-5 py-4 sm:px-8">
               {(config.actions ?? []).map((action) => (
                 <Link
                   key={action.label}
@@ -227,9 +218,10 @@ export function MobileMenu() {
                   {action.label}
                 </Link>
               ))}
-            </div>
+            </SidebarFooter>
           )}
-        </nav>
+          </Sidebar>
+        </SidebarProvider>
       )}
     </div>
   );
