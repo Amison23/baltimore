@@ -103,7 +103,7 @@ export default function PortfolioCard(){
       animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} 
       transition={{ duration: 0.25 }}
     >
-    <Card size="sm" className="h-full rounded-2xl shadow-sm">
+    <Card size="sm" className="group h-full rounded-2xl shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none">
       <div>
         <img 
           src={item.image}

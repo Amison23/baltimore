@@ -93,7 +93,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   display: flex;
   width: max-content;
   animation: scroll 10s linear infinite;
-  gap: 1rem;
   cursor: pointer;
 }
 

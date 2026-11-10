@@ -8,9 +8,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="bg-brand-surface py-16 sm:py-20">
+    <section id="services" className="bg-brand-navy py-16 sm:py-20">
       <div className="mx-auto max-w-[1180px] px-6 sm:px-8">
-        <h2 className="text-3xl font-bold text-brand-navy">Our Services</h2>
+        <h2 className="text-3xl font-bold text-white">Our Services</h2>
         <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {services.map((service) => <ServiceCard key={service.title} {...service} />)}
         </div>
