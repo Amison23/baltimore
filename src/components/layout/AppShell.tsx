@@ -1,14 +1,21 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { MegaMenu } from "@/components/nav/MegaMenu";
-import { MobileMenu } from "@/components/nav/MobileMenu";
+import { MobileMenu } from "@/components/common/MenuLayout";
 import { NavStateProvider } from "@/components/nav/NavState";
 
 function Header() {
   return (
     <header className="relative border-b border-brand-border-strong bg-white [--header-h:58px] sm:[--header-h:70px]">
       <NavStateProvider>
-        <div className="relative mx-auto flex h-[58px] max-w-[1300px] items-center justify-end gap-4 px-5 sm:h-[70px] sm:px-8 lg:px-10 xl:hidden">
+        <div className="mx-auto flex h-[58px] max-w-[1300px] items-center justify-end gap-4 px-5 sm:min-h-[70px] sm:px-8 lg:px-10 xl:hidden">
+          <Link href="/" className="mr-auto flex items-center gap-2" aria-label="Baltimore Group home">
+            <img src="/assets/brand-mark.png" alt="" className="h-12 w-14 object-contain" />
+            <span className="leading-none">
+              <span className="block text-base font-bold text-brand-navy sm:text-[22px]">Baltimore Group</span>
+              <span className="mt-1 block text-[9px] text-brand-navy sm:text-[11px]">Excellence Through Integrity</span>
+            </span>
+          </Link>
           <MobileMenu />
         </div>
         <div className="hidden xl:block">

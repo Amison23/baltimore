@@ -9,8 +9,8 @@ type ServiceCardProps = {
 export default function ServiceCard({ title, description, image }: ServiceCardProps) {
   return (
     <article className="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-brand-border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none">
-      <div className="relative h-44 overflow-hidden bg-brand-navy">
-        <div className="absolute inset-0 z-10 bg-brand-navy/90 transition-colors duration-300 group-hover:bg-brand-navy/55 motion-reduce:transition-none" />
+      <div className="relative h-44 overflow-hidden">
+        <div className="absolute inset-0 z-10 transition-colors duration-300 motion-reduce:transition-none" />
         <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80 transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none" />
       </div>
       <div className="p-6">
