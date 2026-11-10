@@ -61,7 +61,7 @@ export function MobileMenu() {
   }
 
   return (
-    <div className="lg:hidden">
+    <div className="xl:hidden">
       <button
         ref={toggleRef}
         type="button"
@@ -135,7 +135,7 @@ export function MobileMenu() {
 
           {config && (
             <div className="flex shrink-0 gap-3 border-t border-brand-border-strong bg-white px-5 py-4 sm:px-8">
-              {config.actions.map((action) => <Link key={action.label} href={action.href} onClick={close} className={action.variant === "primary" ? "flex-1 rounded-full bg-brand-gold px-4 py-3 text-center text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-hover motion-reduce:transition-none" : "flex-1 rounded-full border border-brand-blue px-4 py-3 text-center text-sm font-semibold text-brand-blue transition hover:bg-brand-blue hover:text-white motion-reduce:transition-none"}>{action.label}</Link>)}
+              {(config.actions ?? []).map((action) => <Link key={action.label} href={action.href} onClick={close} className={action.variant === "primary" ? "flex-1 rounded-full bg-brand-gold px-4 py-3 text-center text-sm font-semibold text-brand-navy transition hover:bg-brand-gold-hover motion-reduce:transition-none" : "flex-1 rounded-full border border-brand-blue px-4 py-3 text-center text-sm font-semibold text-brand-blue transition hover:bg-brand-blue hover:text-white motion-reduce:transition-none"}>{action.label}</Link>)}
             </div>
           )}
         </nav>

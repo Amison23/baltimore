@@ -1,43 +1,19 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { CategoryBar } from "@/components/nav/CategoryBar";
+import { MegaMenu } from "@/components/nav/MegaMenu";
 import { MobileMenu } from "@/components/nav/MobileMenu";
 import { NavStateProvider } from "@/components/nav/NavState";
-import { TagBar } from "@/components/nav/TagBar";
 
 function Header() {
   return (
     <header className="relative border-b border-brand-border-strong bg-white [--header-h:58px] sm:[--header-h:70px]">
       <NavStateProvider>
-          <div className="relative mx-auto flex h-[58px] max-w-[1180px] items-center justify-between gap-4 px-5 sm:h-[70px] sm:px-8 lg:px-10">
-            <Link href="/" className="flex items-center gap-2" aria-label="Baltimore Group home">
-              <img src="/assets/brand-mark.png" alt="" className="h-12 w-14 object-contain" />
-              <span className="leading-none">
-                <span className="block text-base font-bold text-brand-navy sm:text-[22px]">Baltimore Group</span>
-                <span className="mt-1 block text-[9px] text-brand-navy sm:text-[11px]">Excellence Through Integrity</span>
-              </span>
-            </Link>
-
-            <div className="hidden flex-1 justify-center md:flex">
-              <TagBar />
-            </div>
-
-            <div className="hidden items-center gap-4 md:flex">
-              <Link href="#contact" className="rounded-full border-2 border-brand-blue px-4 py-2 text-sm font-semibold text-brand-blue hover:bg-brand-blue hover:text-white sm:px-5">Contact Us</Link>
-              <div className="hidden items-center gap-3 sm:flex" aria-label="Social links">
-                <img src="/assets/facebook.svg" alt="Facebook" className="size-6" />
-                <img src="/assets/twitter-x.svg" alt="X" className="size-5" />
-                <img src="/assets/linkedin.svg" alt="LinkedIn" className="size-6" />
-                <img src="/assets/instagram.svg" alt="Instagram" className="size-6" />
-              </div>
-            </div>
-            <MobileMenu />
-          </div>
-          <div className="hidden h-12 border-t border-brand-border md:block">
-            <div className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-10">
-              <CategoryBar />
-            </div>
-          </div>
+        <div className="relative mx-auto flex h-[58px] max-w-[1300px] items-center justify-end gap-4 px-5 sm:h-[70px] sm:px-8 lg:px-10 xl:hidden">
+          <MobileMenu />
+        </div>
+        <div className="hidden xl:block">
+          <MegaMenu />
+        </div>
       </NavStateProvider>
     </header>
   );

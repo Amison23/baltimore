@@ -1,15 +1,13 @@
 export const TAGS = [
-  { id: "personal", label: "Personal" },
-  { id: "business", label: "Business" },
+  { id: "services", label: "Services" },
   { id: "about-us", label: "About us" },
-  { id: "customer-support", label: "Customer Support" },
 ] as const;
 
 export type TagId = (typeof TAGS)[number]["id"];
-export const DEFAULT_TAG: TagId = "personal";
+export const DEFAULT_TAG: TagId = "services";
 
 export type NavAction = {
-  label: string;
+  label?: string;
   href: string;
   variant?: "primary" | "outline";
 };
@@ -25,7 +23,7 @@ export type MenuNode = NodeBase &
 
 export type TagConfig = {
   categories: MenuNode[];
-  actions: [NavAction, ...NavAction[]];
+  actions?: [NavAction, ...NavAction[]];
 };
 
 const placeholderFeature = {
@@ -35,30 +33,60 @@ const placeholderFeature = {
 };
 
 export const nav: Record<TagId, TagConfig> = {
-  personal: {
+  services: {
     categories: [
       {
-        label: "Secure Life and Assets",
+        label: "Personal",
         children: [
+          {
+            label: "Property",
+            children: [
+              { label: "Motor Insurance", href: "#" },
+              { label: "Home Insurance", href: "#" },
+              { label: "Golf Insurance", href: "#" },
+              { label: "Pet Insurance", href: "#" },
+              { label: "Mortgage protection Assurance", href: "#" },
+            ]
+          },
+          {
+            label: "Life",
+            children: [
+              {label: "Education Insurance", href:"#"},
+              {label: "Life Insurance", href:"#"},
+              {label: "Endowment Insurance with profits", href:"#"},
+              {label: "Value added term assurance", href:"#"},
+              {label: "Pet Insurance", href:"#"},
+            ]
+          },
           {
             label: "Family",
             children: [
-              { label: "My family and I", href: "/personal/banking/everyday" },
-              { label: "My Life", href: "/personal/banking/savings" },
-              { label: "My property", href: "/personal/banking/my-property" },
+              {label: "Secure Life and Assets", href:"#"},
+              {label: "Grow your money", href:"#"},
+              {label: "Retire with ease", href:"#"},
+              {label: "Preserve your legacy", href:"#"},
+            ]
+          },
+          {
+            label: "Unit trusts",
+            children: [
+              {label: "Money Market fund(MMF)", href:"#"},
+              {label: "Equity fund", href:"#"},
+              {label: "Balance fund", href:"#"},
+              {label: "Fixed Income fund", href:"#"},
             ]
           },
         ]
       },
       {
-        label: "Grow your Money",
+        label: "Business",
         children: [
           { label: "Unit trusts", href: "/personal/loans" },
           { label: "Home loans", href: "/personal/home-loans" },
         ],
       },
       {
-        label: "Retire with ease",
+        label: "Property",
         children: [
           { label: "Investing", href: "/personal/investing" },
           { label: "Retirement", href: "/personal/retirement" },
@@ -77,54 +105,7 @@ export const nav: Record<TagId, TagConfig> = {
       { label: "Contact us", href: "/contact", variant: "outline" },
     ],
   },
-  business: {
-    // TODO: Replace these placeholder business categories with approved product copy.
-    categories: [
-      {
-        label: "Business banking",
-        feature: placeholderFeature,
-        children: [
-          {
-            label: "Accounts",
-            href: "/business/accounts",
-            children: [
-              { label: "Business current account", href: "/business/accounts/current" },
-              { label: "Business savings", href: "/business/accounts/savings" },
-            ],
-          },
-          {
-            label: "Loans",
-            children: [
-              {
-                label: "Equipment financing",
-                href: "/business/loans/equipment",
-                children: [{ label: "Asset finance", href: "/business/loans/equipment/asset-finance" }],
-              },
-              { label: "Working capital", href: "/business/loans/working-capital" },
-            ],
-          },
-        ],
-      },
-      {
-        label: "Business growth",
-        children: [
-          { label: "Advisory", href: "/business/advisory" },
-          { label: "Payments", href: "/business/payments" },
-        ],
-      },
-      {
-        label: "Industries",
-        children: [
-          { label: "Agriculture", href: "/business/industries/agriculture" },
-          { label: "Trade", href: "/business/industries/trade" },
-        ],
-      },
-    ],
-    actions: [
-      { label: "Open an account", href: "/business/open-account", variant: "primary" },
-      { label: "Talk to us", href: "/contact", variant: "outline" },
-    ],
-  },
+
   "about-us": {
     // TODO: Replace these placeholder about-us categories with approved copy.
     categories: [
@@ -142,48 +123,13 @@ export const nav: Record<TagId, TagConfig> = {
           { label: "Sustainability", href: "/about-us/sustainability" },
         ],
       },
-      {
-        label: "Careers",
-        href: "/careers",
-        children: [{ label: "Open roles", href: "/careers/open-roles" }],
-      },
     ],
     actions: [
       { label: "Meet our team", href: "/about-us/leadership", variant: "primary" },
       { label: "Contact us", href: "/contact", variant: "outline" },
     ],
   },
-  "customer-support": {
-    // TODO: Replace these placeholder support categories with approved copy.
-    categories: [
-      {
-        label: "Help centre",
-        children: [
-          { label: "Frequently asked questions", href: "/customer-support/faq" },
-          { label: "Contact support", href: "/customer-support/contact" },
-        ],
-      },
-      {
-        label: "Self service",
-        children: [
-          { label: "Report an issue", href: "/customer-support/report-issue" },
-          { label: "Track a request", href: "/customer-support/track-request" },
-        ],
-      },
-      {
-        label: "Resources",
-        children: [
-          { label: "Guides", href: "/customer-support/guides" },
-          { label: "Service updates", href: "/customer-support/updates", disabled: true },
-        ],
-      },
-    ],
-    actions: [
-      { label: "Get help", href: "/customer-support/contact", variant: "primary" },
-      { label: "Call us", href: "/contact", variant: "outline" },
-    ],
-  },
-};
+  };
 
 export function isTagId(value: string): value is TagId {
   return TAGS.some((tag) => tag.id === value);
@@ -207,7 +153,7 @@ function validateNodes(nodes: MenuNode[], path: string[], level: number): void {
       console.warn(`[nav] Level-3 node with children must have an href at ${nodePath.join(" > ")}`);
     }
 
-    if (node.children) validateNodes(node.children, nodePath, level + 1);
+    if (Array.isArray(node.children)) validateNodes(node.children, nodePath, level + 1);
   }
 }
 

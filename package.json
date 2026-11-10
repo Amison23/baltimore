@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "cn": "^0.5.2",
+    "motion": "^14.11.1",
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0"
