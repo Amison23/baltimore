@@ -2,7 +2,7 @@
 
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { useNavState } from "@/components/nav/NavState";
-import { getTag, TAGS, type MenuNode, type TagId } from "@/lib/nav";
+import { getMenuNodeHref, getTag, TAGS, type MenuNode, type TagId } from "@/lib/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -142,8 +142,15 @@ export function MobileMenu() {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
+<<<<<<< Updated upstream
   const expandedTag = openPath[0]?.key as TagId | undefined;
   const config = expandedTag ? getTag(expandedTag) : null;
+=======
+  const current = path[path.length - 1];
+  const currentHref = current ? getMenuNodeHref(current) : undefined;
+  const config = viewTag ? getTag(viewTag) : null;
+  const list = current?.children ?? config?.categories ?? [];
+>>>>>>> Stashed changes
 
   const close = () => {
     setOpen(false);
@@ -255,10 +262,59 @@ export function MobileMenu() {
                       aria-label="Menu path"
                       className="mb-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-b border-brand-border-strong pb-3 text-xs"
                     >
+<<<<<<< Updated upstream
                       <button
                         type="button"
                         onClick={() => setOpenPath([])}
                         className="font-medium text-brand-gold hover:underline"
+=======
+                      {tag.label}
+                      <span aria-hidden="true">›</span>
+                    </button>
+                  </li>
+                ))}
+                <li className="border-b border-brand-border last:border-0">
+                  <Link href="/careers" onClick={close} className="flex min-h-11 w-full items-center justify-between py-3 text-sm font-medium text-brand-ink hover:text-brand-gold motion-reduce:transition-none">
+                    Careers
+                    <span aria-hidden="true">›</span>
+                  </Link>
+                </li>
+                <li className="border-b border-brand-border last:border-0">
+                  <Link href="/#our-people" onClick={close} className="flex min-h-11 w-full items-center justify-between py-3 text-sm font-medium text-brand-ink hover:text-brand-gold motion-reduce:transition-none">
+                    Our People
+                    <span aria-hidden="true">›</span>
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <>
+                <div className="mb-3 flex min-h-11 items-center gap-3 border-b border-brand-border-strong pb-3">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      path.length
+                        ? setPath((currentPath) => currentPath.slice(0, -1))
+                        : setViewTag(null)
+                    }
+                    className="text-sm font-medium text-brand-gold"
+                  >
+                    ← Back
+                  </button>
+
+                  <span className="text-lg font-bold text-brand-navy mx-auto">
+                    {current?.label ??
+                      TAGS.find((tag) => tag.id === viewTag)?.label}
+                  </span>
+                </div>
+
+                <ul className="flex flex-col">
+                  {currentHref && (
+                    <li>
+                      <Link
+                        href={currentHref}
+                        onClick={close}
+                        className="block min-h-11 py-3 text-sm font-semibold text-brand-gold"
+>>>>>>> Stashed changes
                       >
                         Menu
                       </button>
@@ -348,6 +404,7 @@ export function MobileMenu() {
                         <span aria-hidden="true">›</span>
                       </Link>
                     </li>
+<<<<<<< Updated upstream
                     <li className="border-b border-brand-border last:border-0">
                       <Link
                         href="/#our-people"
@@ -357,6 +414,42 @@ export function MobileMenu() {
                         Our People
                         <span aria-hidden="true">›</span>
                       </Link>
+=======
+                  )}
+                  {list.map((node) => (
+                    <li
+                      key={node.productId ?? node.label}
+                      className="border-b border-brand-border last:border-0"
+                    >
+                      {node.children?.length ? (
+                        <button
+                          type="button"
+                          disabled={node.disabled}
+                          aria-disabled={node.disabled ? "true" : undefined}
+                          onClick={() => handleNodeClick(node)}
+                          className="flex min-h-11 w-full items-center justify-between py-3 text-left text-sm font-medium text-brand-ink disabled:cursor-not-allowed disabled:text-brand-slate-light"
+                        >
+                          {node.label}
+                          <span aria-hidden="true">›</span>
+                        </button>
+                      ) : node.disabled || !getMenuNodeHref(node) ? (
+                        <span
+                          aria-disabled="true"
+                          className="block min-h-11 py-3 text-sm text-brand-slate-light"
+                        >
+                          {node.label}
+                          <span className="ml-2 text-xs">Coming soon</span>
+                        </span>
+                      ) : (
+                        <Link
+                          href={getMenuNodeHref(node)!}
+                          onClick={close}
+                          className="block min-h-11 py-3 text-sm font-medium text-brand-ink hover:text-brand-gold motion-reduce:transition-none"
+                        >
+                          {node.label}
+                        </Link>
+                      )}
+>>>>>>> Stashed changes
                     </li>
                   </ul>
                 </div>

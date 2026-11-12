@@ -1,3 +1,5 @@
+import { getProductPageById } from "@/lib/data";
+
 export const TAGS = [
   { id: "services", label: "Services" },
   { id: "about-us", label: "About us" },
@@ -19,7 +21,20 @@ type NodeBase = {
 };
 
 export type MenuNode = NodeBase &
-  ({ href: string; children?: MenuNode[] } | { href?: undefined; children: MenuNode[] });
+  (
+    | { href: string; productId?: never; children?: MenuNode[] }
+    | { productId: string; href?: never; children?: never }
+    | { href?: undefined; productId?: undefined; children: MenuNode[] }
+  );
+
+export function getMenuNodeHref(node: MenuNode): string | undefined {
+  if (node.productId) {
+    const product = getProductPageById(node.productId);
+    return product ? `/services/${product.slug}` : undefined;
+  }
+
+  return node.href;
+}
 
 export type TagConfig = {
   categories: MenuNode[];
@@ -41,7 +56,7 @@ export const nav: Record<TagId, TagConfig> = {
           {
             label: "Property",
             children: [
-              { label: "Motor Insurance", href: "#" },
+              { label: "Motor Insurance", productId: "motor-insurance" },
               { label: "Home Insurance", href: "#" },
               { label: "Golf Insurance", href: "#" },
               { label: "Pet Insurance", href: "#" },
@@ -149,7 +164,7 @@ function validateNodes(nodes: MenuNode[], path: string[], level: number): void {
     }
     labels.add(node.label);
 
-    if (level === 3 && node.children?.length && !node.href) {
+    if (level === 3 && node.children?.length && !getMenuNodeHref(node)) {
       console.warn(`[nav] Level-3 node with children must have an href at ${nodePath.join(" > ")}`);
     }
 

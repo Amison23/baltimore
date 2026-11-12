@@ -3,7 +3,7 @@
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { getTag, TAGS, type MenuNode } from "@/lib/nav";
+import { getMenuNodeHref, getTag, TAGS, type MenuNode } from "@/lib/nav";
 import { useNavState } from "./NavState";
 
 const spring = { type: "spring", stiffness: 380, damping: 34, mass: 0.9 } as const;
@@ -49,18 +49,19 @@ function MenuItem({
   onToggle: (id: string) => void;
 }) {
   const hasChildren = Boolean(item.children?.length);
+  const href = getMenuNodeHref(item);
   const label = item.disabled ? `${item.label} (Coming soon)` : item.label;
 
   return (
     <>
     <li>
       <div className="flex items-center justify-between gap-4">
-        {item.disabled || !item.href ? (
+        {item.disabled || !href ? (
           <span className={`rounded-md px-3 py-2 text-sm ${item.disabled ? "text-brand-slate-light" : "text-brand-ink"}`} aria-disabled={item.disabled ? "true" : undefined}>
             {label}
           </span>
         ) : (
-          <Link href={item.href} className="block rounded-md px-3 py-2 text-sm text-brand-ink transition-all duration-200 ease-out hover:translate-x-1 hover:bg-brand-surface hover:text-brand-gold motion-reduce:transform-none motion-reduce:transition-none">
+          <Link href={href} className="block rounded-md px-3 py-2 text-sm text-brand-ink transition-all duration-200 ease-out hover:translate-x-1 hover:bg-brand-surface hover:text-brand-gold motion-reduce:transform-none motion-reduce:transition-none">
             {item.label}
           </Link>
         )}

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { MenuNode } from "@/lib/nav";
+import { getMenuNodeHref, type MenuNode } from "@/lib/nav";
 
 type MegaPanelProps = {
   node: MenuNode;
@@ -8,11 +8,12 @@ type MegaPanelProps = {
 };
 
 function NodeLink({ node, onNavigate, className = "" }: { node: MenuNode; onNavigate: () => void; className?: string }) {
-  if (node.disabled || !node.href) {
+  const href = getMenuNodeHref(node);
+  if (node.disabled || !href) {
     return <span aria-disabled={node.disabled ? "true" : undefined} className={`${className} ${node.disabled ? "cursor-not-allowed text-brand-slate-light" : "text-brand-ink"}`}>{node.label}{node.disabled && <span className="ml-2 text-xs">Coming soon</span>}</span>;
   }
 
-  return <Link href={node.href} onClick={onNavigate} className={`${className} text-brand-ink transition-colors hover:text-brand-gold motion-reduce:transition-none`}>{node.label}</Link>;
+  return <Link href={href} onClick={onNavigate} className={`${className} text-brand-ink transition-colors hover:text-brand-gold motion-reduce:transition-none`}>{node.label}</Link>;
 }
 
 export function MegaPanel({ node, onNavigate }: MegaPanelProps) {
