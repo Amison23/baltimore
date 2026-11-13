@@ -96,27 +96,76 @@ export const nav: Record<TagId, TagConfig> = {
       {
         label: "Business",
         children: [
-          { label: "Unit trusts", href: "/personal/loans" },
-          { label: "Home loans", href: "/personal/home-loans" },
+          {
+            label: "Property",
+            children: [
+              { label: "Commercial property", href: "/business/property" },
+              { label: "Fire and perils", href: "/business/property" },
+              { label: "Burglary", href: "/business/property" },
+              { label: "Business all risks", href: "/business/property" },
+              { label: "Business interruption", href: "/business/property" },
+              { label: "Money", href: "#", disabled: true },
+              { label: "Goods in transit", href: "#", disabled: true },
+            ],
+          },
+          {
+            label: "Liability",
+            children: [
+              { label: "Public liability", href: "#", disabled: true },
+              { label: "Employers liability", href: "#", disabled: true },
+              { label: "Professional indemnity", href: "#", disabled: true },
+              { label: "Directors and officers", href: "#", disabled: true },
+            ],
+          },
+          {
+            label: "Motor and fleet",
+            children: [
+              { label: "Commercial motor", href: "#", disabled: true },
+              { label: "Motor fleet", href: "#", disabled: true },
+            ],
+          },
+          {
+            label: "Marine and transit",
+            children: [
+              { label: "Marine cargo", href: "#", disabled: true },
+              { label: "Goods in transit", href: "#", disabled: true },
+            ],
+          },
+          {
+            label: "Employee cover",
+            children: [
+              { label: "Work injury benefit (WIBA)", href: "#", disabled: true },
+              { label: "Group medical", href: "#", disabled: true },
+              { label: "Group life", href: "#", disabled: true },
+            ],
+          },
+          {
+            label: "Engineering",
+            children: [
+              { label: "Machinery breakdown", href: "#", disabled: true },
+              { label: "Electronic equipment", href: "#", disabled: true },
+              { label: "Contractors all risks", href: "#", disabled: true },
+            ],
+          },
         ],
       },
       {
         label: "Property",
         children: [
-          { label: "Investing", href: "/personal/investing" },
-          { label: "Retirement", href: "/personal/retirement" },
+          { label: "Investing", href: "/business/investing" },
+          { label: "Retirement", href: "/business/retirement" },
         ],
       },
       {
         label: "Preserve your Legacy",
         children: [
-          { label: "Investing", href: "/personal/investing" },
-          { label: "Retirement", href: "/personal/retirement" },
+          { label: "Investing", href: "/business/investing" },
+          { label: "Retirement", href: "/business/retirement" },
         ],
       },
     ],
     actions: [
-      { label: "Get started", href: "/personal/get-started", variant: "primary" },
+      { label: "Get started", href: "/business/get-started", variant: "primary" },
       { label: "Contact us", href: "/contact", variant: "outline" },
     ],
   },
